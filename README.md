@@ -53,7 +53,7 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - O deployment deverá possuir 4 réplicas.  
   - Criar um serviço chamado "cgi" para o deploy "cgi"  
   - O serviço responderá internamente através da porta 9090.  
-- Criar um deploy chamado "nginx:alpine" baseado em nginx:alpine  
+- Criar um deploy chamado "nginx" baseado em nginx:alpine  
   - Atualizar o deployment para a imagem "nginx:perl"  
   - Faça rollback para a versão anterior.  
 - Criar um pod de "memcached:alpine" para cada "worker" do cluster.  

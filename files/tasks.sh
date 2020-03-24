@@ -20,7 +20,7 @@ cat <<EOF
 	3.2 - Criar um serviço chamado "cgi" para o deploy "cgi"
 	3.3 - O serviço responderá internamente através da porta 9090.
 
-4 - Criar um deploy chamado "nginx:alpine" baseado em nginx:alpine
+4 - Criar um deploy chamado "nginx" baseado em nginx:alpine
 	4.1 - Atualizar o deployment para a imagem "nginx:perl"
 	4.2 - Faça rollback para a versão anterior.
 
