@@ -62,7 +62,7 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini  
   - Criar duas variáveis de ambiente no pod: USER e PASS com os respectivos valores de "httpd-auth"  
   - Criar um ConfigMap chamado "httpd-conf" com o conteúdo de files/httpd.conf  
-  - Montá-lo dentro do pod em /usr/local/apache2/conf utilizando "subpath"  
+  - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"  
   - A página deve ser exibida somente com a execução do seguinte comando: `curl -u developer:4linux 10.244.10.1`, do contrário uma mensagem de não autorização deverá aparecer.  
   - **Obs:** Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam de todo processo de configuração.
 - Criar um deploy com a imagem "couchdb" chamado "couchdb".  

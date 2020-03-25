@@ -33,7 +33,7 @@ cat <<EOF
   6.2 - Criar duas variáveis de ambiente no pod: USER e PASS com os respectivos 
         valores de "httpd-auth"
   6.4 - Criar um ConfigMap chamado "httpd-conf" com o conteúdo de files/httpd.conf
-  6.5 - Montá-lo dentro do pod em /usr/local/apache2/conf utilizando "subpath"
+  6.5 - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"
   6.6 - A página deve ser exibida somente com a execução do seguinte comando:
         curl -u developer:4linux 10.244.10.1
         Do contrário uma mensagem de não autorização deverá aparecer.
