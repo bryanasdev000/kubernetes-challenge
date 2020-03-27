@@ -2,9 +2,9 @@
 # vi: set ft=ruby :
 
 vms = {
-  'master' => {'memory' => '2048', 'cpus' => 2, 'ip' => '10', 'provision' => 'master.sh'},
   'node1' => {'memory' => '1024', 'cpus' => 1, 'ip' => '20', 'provision' => 'node.sh'},
-  'node2' => {'memory' => '1024', 'cpus' => 1, 'ip' => '30', 'provision' => 'node.sh'}
+  'node2' => {'memory' => '1024', 'cpus' => 1, 'ip' => '30', 'provision' => 'node.sh'},
+	'master' => {'memory' => '2048', 'cpus' => 2, 'ip' => '10', 'provision' => 'master.sh'}
 }
 
 Vagrant.configure('2') do |config|
