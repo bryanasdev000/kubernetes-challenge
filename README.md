@@ -38,6 +38,13 @@ A infraestrutura é composta de 1 master e 2 nodes:
 | node1.example.com   | 172.27.11.20  | node          |
 | node2.example.com   | 172.27.11.30  | node          |
 
+## Processo de Provisionamento
+
+Os scripts de provisionamento das máquinas parecem relativamente complexos pois o laboratório foi pensado para utilizar o mínimo possível de conexão com a internet.
+
+Por conta disso a máquina **master** baixa todos os pacotes necessários enquanto que os **nodes** através de um loop conseguem saber o momento exato para puxar os pacotes para sí e iniciar a instalação dos pacotes além de ingressarem no cluster.
+
+A ordem de inicialização é o contrário do óbvio, a **master** é a última máquina a ser criada.
 
 ## Tarefas
 

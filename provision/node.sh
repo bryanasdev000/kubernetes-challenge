@@ -1,3 +1,3 @@
 #!/bin/bash
 
-bash /vagrant/provision/node-steps.sh > /tmp/provision.log  2>&1 &
+bash /vagrant/provision/node-steps.sh $1 > /tmp/provision.log  2>&1 &
