@@ -19,4 +19,5 @@ cp /vagrant/files/check.sh /usr/local/bin/k8s-check
 chmod +x /usr/local/bin/k8s-*
 
 usermod -G docker -a vagrant
+kubectl create ns database
 bash /vagrant/provision/messup.sh &

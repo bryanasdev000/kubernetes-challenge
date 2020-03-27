@@ -59,3 +59,20 @@ grep -E 'Image: *memcached:alpine$' /tmp/task5 > /dev/null
 test "0" -ne "$?" && echo_fail 'não encontramos os pods baseados em "memcached:alpine".'
 kubectl describe ds -n default | grep -E 'Image: *memcached:alpine$' > /dev/null
 echo_success 'O replicaset foi criado corretamente!\n'
+
+echo 'Task 6 - Apache com autenticação...'
+kubectl -n default describe secret httpd-auth > /tmp/task6-1 2> /dev/null
+test -z "$(cat /tmp/task6-1)" && echo_fail 'não encontramos o secret "httpd-auth".'
+test "$(grep -E '^HTPASSWD_USER|^HTPASSWD_PASS' /tmp/task6-1 | wc -l)" -ne 2 && echo_fail 'O secret não possui as chaves USER e PASS.'
+kubectl -n default describe cm httpd-conf > /tmp/task6-2 2> /dev/null
+test -z "$(cat /tmp/task6-2)" && echo_fail 'não encontramos o configMap "httpd-conf".'
+kubectl describe pod auth -n default > /tmp/task6-3 2> /dev/null
+ENV_FROM="$(grep -oEz 'Environment Variables from.*httpd-auth ' /tmp/task6-3)"
+ENV_REF="$(grep -E 'HTPASSWD_USER:|HTPASSWD_PASS:' /tmp/task6-3 | wc -l)"
+if [ -z "$ENV_FROM" ] && [ "$ENV_REF" -ne 2 ]; then echo_fail 'não encontramos as variáveis dentro do pod "auth".'; fi
+grep -E '/etc/apache2/httpd.conf.*path="httpd.conf"' /tmp/task6-3 > /dev/null
+test "0" -ne "$?" && echo_fail 'não encontramos o configMap "httpd-conf" dentro do pod "auth" montado com subPath.'
+POD_IP=$(grep -Eo '^IP: *([0-9]{1,3}\.){3}[0-9]{1,3}$' /tmp/task6-3 | sed 's/IP: *//')
+HTTP_STATUS="$(curl -u developer:4linux -s -o /dev/null -w '%{http_code}' $POD_IP)"
+test "$HTTP_STATUS" -ne "200" && echo_fail "não conseguimos acessar o pod no endereço $POD_IP."
+echo_success 'O pod "auth" foi criado corretamente!\n'

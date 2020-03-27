@@ -67,7 +67,7 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - Caso um novo "worker" seja adicionado ao cluster, uma réplica deste pod precisa automaticamente ser provisionado dentro do novo nó.  
 - Criar um pod com a imagem "hectorvido/apache-auth" chamado "auth"  
   - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini  
-  - Criar duas variáveis de ambiente no pod: USER e PASS com os respectivos valores de "httpd-auth"  
+  - Criar duas variáveis de ambiente no pod: HTPASSWD_USER e HTPASSWD_PASS com os respectivos valores de "httpd-auth"  
   - Criar um ConfigMap chamado "httpd-conf" com o conteúdo de files/httpd.conf  
   - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"  
   - A página deve ser exibida somente com a execução do seguinte comando: `curl -u developer:4linux 10.244.10.1`, do contrário uma mensagem de não autorização deverá aparecer.  

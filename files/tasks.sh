@@ -30,7 +30,7 @@ cat <<EOF
 
 6 - Criar um pod com a imagem "hectorvido/apache-auth" chamado "auth"
   6.1 - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini
-  6.2 - Criar duas variáveis de ambiente no pod: USER e PASS com os respectivos 
+  6.2 - Criar duas variáveis de ambiente no pod: HTPASSWD_USER e HTPASSWD_PASS com os respectivos 
         valores de "httpd-auth"
   6.4 - Criar um ConfigMap chamado "httpd-conf" com o conteúdo de files/httpd.conf
   6.5 - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"
