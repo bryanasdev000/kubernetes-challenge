@@ -25,8 +25,8 @@ cat <<EOF
 	4.2 - Faça rollback para a versão anterior.
 
 5 - Criar um pod de "memcached:alpine" para cada "worker" do cluster.
-	5.1 - Caso um novo "worker" seja adicionado ao cluster, uma réplica
-	deste pod precisa automaticamente ser provisionado dentro do novo nó.
+	5.1 - Caso um novo "node" seja adicionado ao cluster, uma réplica
+	deste pod precisa ser automaticamente provisionada dentro do novo nó.
 
 6 - Criar um pod com a imagem "hectorvido/apache-auth" chamado "auth"
   6.1 - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini
@@ -40,8 +40,10 @@ cat <<EOF
   Obs: Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam
   de todo processo de configuração.
 
-7 - Criar um pod chamado "busybox" na máquina "master"
-  7.1 - O pod deverá ser estático
+7 - Criar um pod chamado "tools" na máquina "master"
+  7.1 - O pod deverá utilizar a imagem "busybox"
+  7.2 - O pod deverá ser estático
+	7.3 - O pod deverá estar presente somente no "node1"
 
 8 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
   8.1 - Utilizar o namespace "database" - já está criado

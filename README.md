@@ -64,7 +64,7 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - Atualizar o deployment para a imagem "nginx:perl"  
   - Faça rollback para a versão anterior.  
 - Criar um pod de "memcached:alpine" para cada "worker" do cluster.  
-  - Caso um novo "worker" seja adicionado ao cluster, uma réplica deste pod precisa automaticamente ser provisionado dentro do novo nó.  
+  - Caso um novo "node" seja adicionado ao cluster, uma réplica deste pod precisa sder automaticamente provisionada dentro do novo nó.  
 - Criar um pod com a imagem "hectorvido/apache-auth" chamado "auth"  
   - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini  
   - Criar duas variáveis de ambiente no pod: HTPASSWD_USER e HTPASSWD_PASS com os respectivos valores de "httpd-auth"  
@@ -72,13 +72,16 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"  
   - A página deve ser exibida somente com a execução do seguinte comando: `curl -u developer:4linux 10.244.10.1`, do contrário uma mensagem de não autorização deverá aparecer.  
   - **Obs:** Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam de todo processo de configuração.
-- Criar um deploy com a imagem "couchdb" chamado "couchdb".  
-  - Utilizar o namespace "database" - já está criado  
-  - A única réplica poderá apenas ir para a máquina "node2".  
-  - Criar o diretório "/srv/couchdb" na máquina "node2".  
-  - Criar um volume persistente que utilize este diretório.  
-  - Persistir os dados do couchdb no volume criado acima.  
-  - O diretório utilizado pelo couchdb é "/opt/couchdb/data".  
-  - Criar um serviço escutando na porta 5984  
-- Criar um pod chamado "busybox" na máquina "master"  
-  - O pod deverá ser estático  
+- Criar um pod chamado "tools" na máquina "master"
+	- O pod deverá utilizar a imagem "busybox"
+  - O pod deverá ser estático
+	- O pod deverá estar presente somente no "node1"
+- Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
+	- Utilizar o namespace "database" - já está criado
+	- O pod poderá apenas ir para a máquina "node2".
+	- O usuário de conexão deve ser "developer" e senha "4linux"
+	- O serviço deve se chamar "couchdb" e escutar na porta 5984
+	- Criar o diretório "/srv/couchdb" na máquina "node2".
+	- Criar um volume persistente que utilize este diretório.
+	- Persistir os dados do couchdb no volume criado acima.
+	- O diretório utilizado pelo couchdb é "/opt/couchdb/data".

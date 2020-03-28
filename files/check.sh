@@ -24,7 +24,7 @@ echo_success 'Os três nodes estão respondendo!\n'
 echo 'Task 2 - Pod chamado apache...'
 kubectl -n default describe pod apache > /tmp/task2 2> /dev/null
 test -z "$(cat /tmp/task2)" && echo_fail 'não conseguimos encontrar um pod chamado "apache".'
-grep -E 'Status: *Running' /tmp/task2 > /dev/null
+grep -E 'State: *Running' /tmp/task2 > /dev/null
 test "0" -ne "$?" && echo_fail 'o pod parece não estar rodando.'
 grep -E 'Image:.* httpd:alpine' /tmp/task2 > /dev/null
 test "0" -ne "$?" && echo_fail 'a imagem do pod não é httpd:alpine.'
@@ -82,6 +82,15 @@ test "$HTTP_STATUS" -ne "200" && echo_fail "não conseguimos acessar o pod no en
 echo_success 'O pod "auth" foi criado corretamente!\n'
 
 echo 'Task 7 - Pod estático'
+kubectl -n default describe pod tools-node1 > /tmp/task7 2> /dev/null
+test -z "$(cat /tmp/task7)" && echo_fail 'não conseguimos encontrar o pod estático "tools-node1".'
+ssh -o stricthostkeychecking=no 172.27.11.20 "grep -roEz 'metadata:\s*name: *tools.*image: busybox' /etc/kubernetes/manifests > /dev/null 2>&1"
+test "0" -ne "$?" && echo_fail 'não encontramos a definição correta do pod no "node1".'
+grep -E 'State: *Running' /tmp/task7 > /dev/null
+test "0" -ne "$?" && echo_fail 'o pod parece não estar rodando.'
+kubectl get pod tools-node1 -o wide -n default 2> /dev/null | grep node1 > /dev/null 2>&1
+test "0" -ne "$?" && echo_fail 'O pod não está no "node1".'
+echo_success 'O pod estático foi criado corretamente!\n'
 
 echo 'Task 8 - Boas práticas para persistência...'
 kubectl -n database describe statefulset couchdb > /tmp/task8-1 2> /dev/null
