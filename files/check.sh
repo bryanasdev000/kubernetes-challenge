@@ -8,6 +8,10 @@ function echo_fail {
 	exit 1
 }
 
+function echo_warning {
+	echo -e "\033[0;33m$1\033[0m"
+}
+
 function echo_success {
 	echo -e "\033[0;32m${successes[$(($RANDOM % 5))]} $1\033[0m"
 }
@@ -76,3 +80,27 @@ POD_IP=$(grep -Eo '^IP: *([0-9]{1,3}\.){3}[0-9]{1,3}$' /tmp/task6-3 | sed 's/IP:
 HTTP_STATUS="$(curl -u developer:4linux -s -o /dev/null -w '%{http_code}' $POD_IP)"
 test "$HTTP_STATUS" -ne "200" && echo_fail "não conseguimos acessar o pod no endereço $POD_IP."
 echo_success 'O pod "auth" foi criado corretamente!\n'
+
+echo 'Task 7 - Pod estático'
+
+echo 'Task 8 - Boas práticas para persistência...'
+kubectl -n database describe statefulset couchdb > /tmp/task8-1 2> /dev/null
+test -z "$(cat /tmp/task8-1)" && echo_fail 'não encontramos o statefulset "couchdb".'
+grep -Ew 'Replicas:  1 desired | 1 total' /tmp/task8-1 > /dev/null
+test "0" -ne "$?" && echo_fail 'parece que o pod não está funcionando.'
+kubectl get pods -o wide -n database | grep couchdb | grep node2 > /dev/null 2>&1
+test "0" -ne "$?" && echo_fail 'O pod não está no "node2".'
+ssh -o stricthostkeychecking=no 172.27.11.30 stat /srv/couchdb > /dev/null 2>&1
+test "0" -ne "$?" && echo_fail 'não encontramos o diretório "/srv/couchdb" no "node2".'
+kubectl get pv --no-headers | cut -d' ' -f1 | xargs -n1 kubectl describe pv | grep -zEo 'HostPath.*/srv/couchdb' > /dev/null
+test "0" -ne "$?" && echo_fail 'nenhum volume do tipo "HostPath" foi encontrado utilizando "/srv/couchdb".'
+kubectl -n database describe statefulset couchdb > /tmp/task8-2
+grep -zoE 'Mounts:.*/opt/couchdb/data.*Volume Claims:.*Name:' /tmp/task8-2 > /dev/null
+test "0" -ne "$?" && echo_fail 'O pode não está utilizando um PVC apontando para "/srv/couchdb".'
+echo_warning 'Importando músicas do Roberto Carlos para o couchdb...'
+bash /vagrant/files/couchdb-import.sh
+echo_warning 'Destruindo pod para testar persistência...'
+kubectl delete pod couchdb-0 -n database
+bash /vagrant/files/couchdb-check.sh
+test "0" -ne "$?" && echo_fail 'Nem todos os dados foram encontrados, o volume está correto?'
+echo_success 'O statefulset funcionou, todas as músicas do Roberto Carlos persistiram!\n'

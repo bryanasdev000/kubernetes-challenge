@@ -30,7 +30,7 @@ cat <<EOF
 
 6 - Criar um pod com a imagem "hectorvido/apache-auth" chamado "auth"
   6.1 - Criar um Secret chamado "httpd-auth" baseado no arquivo files/auth.ini
-  6.2 - Criar duas variáveis de ambiente no pod: HTPASSWD_USER e HTPASSWD_PASS com os respectivos 
+  6.2 - Criar duas variáveis de ambiente no pod: HTPASSWD_USER e HTPASSWD_PASS com os respectivos
         valores de "httpd-auth"
   6.4 - Criar um ConfigMap chamado "httpd-conf" com o conteúdo de files/httpd.conf
   6.5 - Montá-lo dentro do pod em /etc/apache2/httpd.conf utilizando "subpath"
@@ -40,15 +40,16 @@ cat <<EOF
   Obs: Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam
   de todo processo de configuração.
 
-7 - Criar um deploy com a imagem "couchdb" chamado "couchdb".
-  7.1 - Utilizar o namespace "database" - já está criado
-  7.2 - A única réplica poderá apenas ir para a máquina "node2".
-  7.3 - Criar o diretório "/srv/couchdb" na máquina "node2".
-  7.4 - Criar um volume persistente que utilize este diretório.
-  7.5 - Persistir os dados do couchdb no volume criado acima.
-  7.6 - O diretório utilizado pelo couchdb é "/opt/couchdb/data".
-  7.7 - Criar um serviço escutando na porta 5984
+7 - Criar um pod chamado "busybox" na máquina "master"
+  7.1 - O pod deverá ser estático
 
-8 - Criar um pod chamado "busybox" na máquina "master"
-  8.1 - O pod deverá ser estático
+8 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
+  8.1 - Utilizar o namespace "database" - já está criado
+  8.2 - O pod poderá apenas ir para a máquina "node2".
+	8.3 - O usuário de conexão deve ser "developer" e senha "4linux"
+	8.4 - O serviço deve se chamar "couchdb" e escutar na porta 5984
+  8.5 - Criar o diretório "/srv/couchdb" na máquina "node2".
+  8.6 - Criar um volume persistente que utilize este diretório.
+  8.7 - Persistir os dados do couchdb no volume criado acima.
+  8.8 - O diretório utilizado pelo couchdb é "/opt/couchdb/data".
 EOF
