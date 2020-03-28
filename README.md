@@ -73,9 +73,9 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - A página deve ser exibida somente com a execução do seguinte comando: `curl -u developer:4linux 10.244.10.1`, do contrário uma mensagem de não autorização deverá aparecer.  
   - **Obs:** Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam de todo processo de configuração.
 - Criar um pod chamado "tools" na máquina "master"
-	- O pod deverá utilizar a imagem "busybox"
+  - O pod deverá utilizar a imagem "busybox"
   - O pod deverá ser estático
-	- O pod deverá estar presente somente no "node1"
+  - O pod deverá estar presente somente no "node1"
 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
 	- Utilizar o namespace "database" - já está criado
 	- O pod poderá apenas ir para a máquina "node2".

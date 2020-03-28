@@ -1,9 +1,7 @@
 #!/bin/#!/usr/bin/env bash
 
 kubectl exec -ti couchdb-0 -n database -- curl -X DELETE -u developer:4linux couchdb:5984/check > /dev/null
-kubectl exec -ti couchdb-0 -n database -- curl -u developer:4linux -H 'Content-Type: application/json' -d '{"selector": {"nome": "Cavalgada"}}' couchdb:5984/robertocarlos/_find | grep Cavalgada > /dev/null
-
-test "$?" -eq 0 && exit
+kubectl exec -ti couchdb-0 -n database -- curl -X DELETE -u developer:4linux couchdb:5984/robertocarlos > /dev/null
 
 kubectl exec -ti couchdb-0 -n database -- curl -X PUT -u developer:4linux couchdb:5984/robertocarlos > /dev/null
 

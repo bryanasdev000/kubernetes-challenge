@@ -106,7 +106,7 @@ test "0" -ne "$?" && echo_fail 'nenhum volume do tipo "HostPath" foi encontrado 
 kubectl -n database describe statefulset couchdb > /tmp/task8-2
 grep -zoE 'Mounts:.*/opt/couchdb/data.*Volume Claims:.*Name:' /tmp/task8-2 > /dev/null
 test "0" -ne "$?" && echo_fail 'O pode não está utilizando um PVC apontando para "/srv/couchdb".'
-echo_warning 'Importando músicas do Roberto Carlos para o couchdb...'
+echo_warning 'Limpando e importando músicas do Roberto Carlos para o couchdb...'
 bash /vagrant/files/couchdb-import.sh
 echo_warning 'Destruindo pod para testar persistência...'
 kubectl delete pod couchdb-0 -n database

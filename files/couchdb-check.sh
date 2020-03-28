@@ -6,12 +6,12 @@ function echo_warning {
 
 while [ -z "$(kubectl get pod couchdb-0 -n database | grep Running)" ]; do
 	echo_warning "Esperando pod inicializar..."
-	sleep 1
+	sleep 2
 done
 
 while [ -z "$(kubectl exec -ti couchdb-0 -n database -- curl --connect-timeout 1 -X PUT -u developer:4linux couchdb:5984/check 2> /dev/null | grep ok)" ]; do
 	echo_warning "Esperando aplicação..."
-	sleep 1
+	sleep 2
 done
 
 for X in 'Amigo' 'O Portão' 'Cavalgada' 'Vivendo por Viver' 'Ternura' 'Nossa Canção', 'Ilegal, Imoral ou Engorda', 'Quando', 'Se Você Pensa'; do
