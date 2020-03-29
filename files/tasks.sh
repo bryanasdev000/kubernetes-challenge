@@ -40,7 +40,7 @@ cat <<EOF
   Obs: Nenhuma configuração extra é necessária, o Secret e o ConfigMap cuidam
   de todo processo de configuração.
 
-7 - Criar um pod chamado "tools" na máquina "master"
+7 - Criar um pod chamado "tools"
   7.1 - O pod deverá utilizar a imagem "busybox"
   7.2 - O pod deverá ser estático
 	7.3 - O pod deverá estar presente somente no "node1"
