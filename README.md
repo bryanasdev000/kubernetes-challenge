@@ -77,10 +77,11 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
   - O pod deverá ser estático
   - O pod deverá estar presente somente no "node1"
 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
-	- Utilizar o namespace "database" - já está criado
+  - O "headless service" deverá se chamar "couchdb".
+	- Utilizar o namespace "database" - já está criado.
 	- O pod poderá apenas ir para a máquina "node2".
-	- O usuário de conexão deve ser "developer" e senha "4linux"
-	- O serviço deve se chamar "couchdb" e escutar na porta 5984
+	- O usuário de conexão deve ser "developer" e senha "4linux".
+	- O serviço deve se chamar "couchdb" e escutar na porta 5984.
 	- Criar o diretório "/srv/couchdb" na máquina "node2".
 	- Criar um volume persistente que utilize este diretório.
 	- Persistir os dados do couchdb no volume criado acima.

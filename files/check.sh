@@ -95,6 +95,8 @@ echo_success 'O pod estático foi criado corretamente!\n'
 echo 'Task 8 - Boas práticas para persistência...'
 kubectl -n database describe statefulset couchdb > /tmp/task8-1 2> /dev/null
 test -z "$(cat /tmp/task8-1)" && echo_fail 'não encontramos o statefulset "couchdb".'
+kubectl get svc couchdb -n database > /dev/null 2>&1
+test "0" -ne "$?" && echo_fail 'não encontramos o serviço "couchdb".'
 grep -Ew 'Replicas:  1 desired | 1 total' /tmp/task8-1 > /dev/null
 test "0" -ne "$?" && echo_fail 'parece que o pod não está funcionando.'
 kubectl get pods -o wide -n database | grep couchdb | grep node2 > /dev/null 2>&1

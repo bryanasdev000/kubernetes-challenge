@@ -45,13 +45,14 @@ cat <<EOF
   7.2 - O pod deverá ser estático
 	7.3 - O pod deverá estar presente somente no "node1"
 
-8 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb".
-  8.1 - Utilizar o namespace "database" - já está criado
-  8.2 - O pod poderá apenas ir para a máquina "node2".
-	8.3 - O usuário de conexão deve ser "developer" e senha "4linux"
-	8.4 - O serviço deve se chamar "couchdb" e escutar na porta 5984
-  8.5 - Criar o diretório "/srv/couchdb" na máquina "node2".
-  8.6 - Criar um volume persistente que utilize este diretório.
-  8.7 - Persistir os dados do couchdb no volume criado acima.
-  8.8 - O diretório utilizado pelo couchdb é "/opt/couchdb/data".
+8 - Criar um statefulSet chamado "couchdb" com a imagem "couchdb"
+  8.1 - O "headless service" deverá se chamar "couchdb".
+  8.2 - Utilizar o namespace "database" - já está criado.
+  8.3 - O pod poderá apenas ir para a máquina "node2".
+	8.4 - O usuário de conexão deve ser "developer" e senha "4linux".
+	8.5 - O serviço deve se chamar "couchdb" e escutar na porta 5984.
+  8.6 - Criar o diretório "/srv/couchdb" na máquina "node2".
+  8.7 - Criar um volume persistente que utilize este diretório.
+  8.8 - Persistir os dados do couchdb no volume criado acima.
+  8.9 - O diretório utilizado pelo couchdb é "/opt/couchdb/data".
 EOF
