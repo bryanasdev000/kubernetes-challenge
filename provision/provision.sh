@@ -7,10 +7,10 @@ cp /vagrant/files/id_rsa.pub /root/.ssh/authorized_keys
 
 HOSTS=$(head -n7 /etc/hosts)
 echo -e "$HOSTS" > /etc/hosts
-echo '172.27.11.10 master.k8s.com' >> /etc/hosts
-echo '172.27.11.20 node1.k8s.com' >> /etc/hosts
-echo '172.27.11.30 node2.k8s.com' >> /etc/hosts
-echo '172.27.11.40 storage.k8s.com' >> /etc/hosts
+echo '172.27.11.10 master.example.com' >> /etc/hosts
+echo '172.27.11.20 node1.example.com' >> /etc/hosts
+echo '172.27.11.30 node2.example.com' >> /etc/hosts
+echo '172.27.11.40 storage.example.com' >> /etc/hosts
 
 if [ "$HOSTNAME" == "storage" ]; then
 	exit
