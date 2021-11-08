@@ -95,5 +95,6 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
 - Adicionar task de Scheduler manual
 - Adicionar task de upgrade do cluster
 - Adicionar task de renovação de certificado
+- Adicionar task de output customizada (jsonpath + sortby)
 - Fix CoreDNS forwarding no Vagrant (de /etc/hosts para 8.8.8.8 ou 1.1.1.1 para nomes externos)
 - Adicionar tasks de informações do cluster
