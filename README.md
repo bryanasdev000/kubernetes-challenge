@@ -86,3 +86,14 @@ Algumas tarefas são mais difíceis do que outras - principalmente a primeira qu
 	- Criar um volume persistente que utilize este diretório.
 	- Persistir os dados do couchdb no volume criado acima.
 	- O diretório utilizado pelo couchdb é "/opt/couchdb/data".
+
+## TODO
+
+- Adicionar task de backup e restore do ETCD (com etcdctl/depreciado e etcdutl/novo)
+- Adicionar task de NetworkPolicy
+- Adicionar task de Taints/Affinity
+- Adicionar task de Scheduler manual
+- Adicionar task de upgrade do cluster
+- Adicionar task de renovação de certificado
+- Fix CoreDNS forwarding no Vagrant (de /etc/hosts para 8.8.8.8 ou 1.1.1.1 para nomes externos)
+- Adicionar tasks de informações do cluster
